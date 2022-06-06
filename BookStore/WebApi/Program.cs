@@ -7,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddDbContext<BookStoreDbContext>(opt => opt.UseInMemoryDatabase(databaseName: "BookStoreDB"));
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -16,16 +18,18 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
 });
-builder.Services.AddDbContext<BookStoreDbContext>(options =>
-{
-    options.UseInMemoryDatabase(databaseName: "BookStore");
-});
 
 
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    DataGenerator.Initialize(services);
+}
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -37,22 +41,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-var host = CreateHostBuilder(args).Build();
-
-
-
-using (var scope = host.Services.CreateScope())
-{
-    var Services = scope.ServiceProvider;
-    DataGenerator.Initialize(Services);
-}
-
-IHostBuilder CreateHostBuilder(string[] args)
-        => Host.CreateDefaultBuilder(args)
-        .ConfigureWebHostDefaults(webBuilder =>
-        {
-            webBuilder.UseStartup<Program>();
-        });
 
 app.Run();
