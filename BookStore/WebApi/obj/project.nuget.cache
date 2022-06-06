@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "RWIdUP/CZoM91I+UNl6E16gBiwVyAWSNVWFSS9ILfSY+KipHxaF62BqUpSHpPLSYYbTCu46kR7tPfW2mA9KZ5A==",
+  "dgSpecHash": "8faSZYIs1//27ttof0jLUvDPNY+5+9bhh11G8RPPNUGy8PJpPDgqi6/pXhCb6nmavcA+kyOinRYs1WSL1qPzrw==",
   "success": true,
   "projectFilePath": "D:\\GitHub\\PatikaApp\\Net-Core\\BookStore\\WebApi\\WebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\BozdemirHome\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\BozdemirHome\\.nuget\\packages\\fluentvalidation\\11.0.2\\fluentvalidation.11.0.2.nupkg.sha512",
     "C:\\Users\\BozdemirHome\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\BozdemirHome\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.0-preview.3.22175.1\\microsoft.entityframeworkcore.7.0.0-preview.3.22175.1.nupkg.sha512",
     "C:\\Users\\BozdemirHome\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.0-preview.3.22175.1\\microsoft.entityframeworkcore.abstractions.7.0.0-preview.3.22175.1.nupkg.sha512",

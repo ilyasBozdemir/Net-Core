@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.BookOperations.CreateBook;
 using WebApi.BookOperations.DeleteBook;
@@ -42,6 +43,16 @@ namespace WebApi.Controllers
             try
             {
                 createBook.Model = model;
+                CreateBookCommandValidator validator = new ();
+                validator.ValidateAndThrow(createBook);
+                //var result = validator.Validate(createBook);
+                //if (result.IsValid)
+                //{
+                //    foreach (var item in result.Errors)
+                //    {
+                //        Console.WriteLine($"property :{item.PropertyName} message :{item.ErrorMessage}");
+                //    }
+                //}
                 createBook.Handle();
             }
             catch (Exception e)
@@ -75,6 +86,8 @@ namespace WebApi.Controllers
             DeleteBookCommand updateBook = new DeleteBookCommand(_context);
             try
             {
+              
+
                 updateBook.Handle(id);
             }
             catch (Exception e)
