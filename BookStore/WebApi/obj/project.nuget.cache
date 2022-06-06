@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "d4o0jOuJzMWg7I7LgrmO+L0DYiB6ugoIwd1Ml52CMD14/766U7jloTwvRPQYgpid8MEKi9GCPIZWi9M5vCYPxQ==",
+  "dgSpecHash": "RWIdUP/CZoM91I+UNl6E16gBiwVyAWSNVWFSS9ILfSY+KipHxaF62BqUpSHpPLSYYbTCu46kR7tPfW2mA9KZ5A==",
   "success": true,
   "projectFilePath": "D:\\GitHub\\PatikaApp\\Net-Core\\BookStore\\WebApi\\WebApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\BozdemirHome\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\BozdemirHome\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\BozdemirHome\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.0-preview.3.22175.1\\microsoft.entityframeworkcore.7.0.0-preview.3.22175.1.nupkg.sha512",
     "C:\\Users\\BozdemirHome\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.0-preview.3.22175.1\\microsoft.entityframeworkcore.abstractions.7.0.0-preview.3.22175.1.nupkg.sha512",
     "C:\\Users\\BozdemirHome\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.0-preview.3.22175.1\\microsoft.entityframeworkcore.analyzers.7.0.0-preview.3.22175.1.nupkg.sha512",

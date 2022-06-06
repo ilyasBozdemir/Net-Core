@@ -65,3 +65,4 @@ D:\GitHub\PatikaApp\Net-Core\BookStore\WebApi\bin\Debug\net6.0\Microsoft.Extensi
 D:\GitHub\PatikaApp\Net-Core\BookStore\WebApi\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
 D:\GitHub\PatikaApp\Net-Core\BookStore\WebApi\bin\Debug\net6.0\System.Collections.Immutable.dll
 D:\GitHub\PatikaApp\Net-Core\BookStore\WebApi\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+D:\GitHub\PatikaApp\Net-Core\BookStore\WebApi\bin\Debug\net6.0\AutoMapper.dll

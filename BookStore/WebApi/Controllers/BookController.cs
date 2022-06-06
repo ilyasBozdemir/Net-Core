@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using WebApi.BookOperations.CreateBook;
+using WebApi.BookOperations.DeleteBook;
 using WebApi.BookOperations.GetBooks;
 using WebApi.BookOperations.GetById;
 using WebApi.BookOperations.UpdateBook;
@@ -11,13 +13,15 @@ namespace WebApi.Controllers
     [ApiController]
     public class BookController : Controller
     {
-
-
         private readonly BookStoreDbContext _context;
-        public BookController(BookStoreDbContext context)
+        private readonly IMapper _mapper;
+
+        public BookController(BookStoreDbContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
+
         [HttpGet]
         public IActionResult GetBooks()
         {
@@ -34,7 +38,7 @@ namespace WebApi.Controllers
         [HttpPost]
         public IActionResult AddBook([FromBody] CreateBookModel model)
         {
-            CreateBookCommand createBook = new CreateBookCommand(_context);
+            CreateBookCommand createBook = new CreateBookCommand(_context,_mapper);
             try
             {
                 createBook.Model = model;
@@ -68,15 +72,16 @@ namespace WebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteBook([FromBody] int id)
         {
-            var book = _context.Books.FirstOrDefault(b => b.Id == id);
-            if (book != null)
-                return BadRequest();
-            else
+            DeleteBookCommand updateBook = new DeleteBookCommand(_context);
+            try
             {
-                _context.Books.Remove(book);
-                _context.SaveChanges();
-                return Ok();
+                updateBook.Handle(id);
             }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            return Ok();
         }
     }
 }

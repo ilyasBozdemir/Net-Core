@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
@@ -51,7 +52,7 @@ IHostBuilder CreateHostBuilder(string[] args)
         => Host.CreateDefaultBuilder(args)
         .ConfigureWebHostDefaults(webBuilder =>
         {
-            webBuilder.UseStartup<Startup>();
+            webBuilder.UseStartup<Program>();
         });
 
 app.Run();
