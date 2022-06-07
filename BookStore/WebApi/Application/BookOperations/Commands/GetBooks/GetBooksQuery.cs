@@ -1,5 +1,4 @@
 ﻿using WebApi.DBOperations;
-using WebApi.Enum;
 
 namespace WebApi.BookOperations.GetBooks
 {
@@ -19,9 +18,11 @@ namespace WebApi.BookOperations.GetBooks
             {
                 vb.Add(new BooksViewModel
                 {
-                    Title=book.Title,
-                    Genre=((GenreEnum)book.GenreId).ToString(),
-                    PublishDate=book.PublishDate.Date.ToString("dd/MM/yyyy")
+                    Title = book.Title,
+
+                    // Genre=((GenreEnum)book.GenreId).ToString(),
+
+                    PublishDate = book.PublishDate.Date.ToString("dd/MM/yyyy")
                 });
             }
             return vb;

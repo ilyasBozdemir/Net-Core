@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebApi.Entities;
 
 namespace WebApi.DBOperations
 {
@@ -9,30 +10,14 @@ namespace WebApi.DBOperations
             using (var context = new BookStoreDbContext(
             serviceProvider.GetRequiredService<DbContextOptions<BookStoreDbContext>>()))
             {
-                
+
                 if (context.Books.Any())
                 {
-                    return;   
+                    return;
                 }
-
-                context.Books.AddRange(
-                   new Book()
-                   {
-                       Id = 1,
-                       Title = "Lean Startup",
-                       GenreId = 1,
-                       PageCount = 200,
-                       PublishDate = new DateTime(2001, 6, 12)
-                   });
-                context.Books.AddRange(
-                   new Book()
-                   {
-                       Id = 2,
-                       Title = "Merland",
-                       GenreId = 2,
-                       PageCount = 250,
-                       PublishDate = new DateTime(2010, 5, 23)
-                   });
+                context.Authors.AddRange(EntityInitialize.GetAuthors());
+                context.Genres.AddRange(EntityInitialize.GetGenres());
+                context.Books.AddRange(EntityInitialize.GetBooks());
                 context.SaveChanges();
             }
         }

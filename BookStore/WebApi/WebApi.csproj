@@ -15,6 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Application\AuthorOperations\Queries\GetAuthorDetail\" />
+    <Folder Include="Application\AuthorOperations\Queries\GetAuthors\" />
     <Folder Include="Validations\" />
     <Folder Include="Views\Book\" />
   </ItemGroup>

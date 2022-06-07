@@ -12,7 +12,7 @@ namespace WebApi.Controllers
 {
     [Route("controllerjs")]
     [ApiController]
-    public class BookController : Controller
+    public class BookController : ControllerBase
     {
         private readonly BookStoreDbContext _context;
         private readonly IMapper _mapper;
