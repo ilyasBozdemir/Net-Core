@@ -1,25 +1,26 @@
-﻿using WebApi.DBOperations;
+using System;
+using System.Linq;
+using WebApi.DBOperations;
 
-namespace WebApi.BookOperations.DeleteBook
+namespace WebApi.Application.BookOperations.Commands.DeleteBook
 {
     public class DeleteBookCommand
     {
-        public BookStoreDbContext _dbContext { get; set; }
-        public DeleteBookCommand(BookStoreDbContext dbContext)
+        private readonly IBookStoreDbContext _dbContext;
+        public int BookId { get; set; }
+        public DeleteBookCommand(IBookStoreDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public void Handle(int id)
+        
+        public void Handle()
         {
-            var book = _dbContext.Books.FirstOrDefault(b => b.Id == id);
-
-            if (book != null)
-                throw new InvalidOperationException("kitap zaten mevcut");
-            else
-            {
-                _dbContext.Books.Remove(book);
-                _dbContext.SaveChanges();
-            }
+            var book = _dbContext.Books.SingleOrDefault(x => x.Id == BookId);
+            if(book is null)
+                throw new InvalidOperationException("Silinecek kitap bulunamadı!");
+            
+            _dbContext.Books.Remove(book);
+            _dbContext.SaveChanges();
         }
     }
 }

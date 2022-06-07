@@ -1,72 +1,87 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Application.GenreOperations.Queries.GetGenreDetail;
-using WebApi.Application.GenreOperations.Commands;
-using WebApi.DBOperations;
 using WebApi.Application.GenreOperations.Queries.GetGenres;
+using WebApi.Application.GenreOperations.Queries.GetGenreDetail;
+using WebApi.DBOperations;
 using FluentValidation;
+using WebApi.Application.GenreOperations.Commands.CreateGenre;
+using WebApi.Application.GenreOperations.Commands.UpdateGenre;
+using WebApi.Application.GenreOperations.Commands.DeleteGenre;
 
 namespace WebApi.Controllers
 {
-  
-    [ApiController, Route("controllerjs")]
+    [ApiController]
+    [Route("[controller]s")]
     public class GenreController : ControllerBase
     {
-        private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public object GetGenreDetailQueryValidator { get; private set; }
-
-        public GenreController(BookStoreDbContext context, IMapper mapper)
+        public GenreController(IBookStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
+
         [HttpGet]
         public ActionResult GetGenres()
         {
-            GetGenresQuery getGenres = new(_context, _mapper);
-            return Ok(getGenres.Handle());
+            GetGenresQuery query = new GetGenresQuery(_context,_mapper);
+            var obj = query.Handle();
+            return Ok(obj);
         }
+
         [HttpGet("id")]
         public ActionResult GetGenreDetail(int id)
         {
-            GetGenreDetailQuery genreDetailQuery = new(_context, _mapper);
+            GetGenreDetailQuery query = new GetGenreDetailQuery(_context,_mapper);
+            query.GenreId = id;
+            GetGenreDetailQueryValidator validator = new GetGenreDetailQueryValidator();
+            validator.ValidateAndThrow(query);
 
-            GetGenreDetailQueryValidator validator = new ();
-            validator.ValidateAndThrow(genreDetailQuery);
-            return Ok(genreDetailQuery.Handle());
+            var obj = query.Handle();
+            return Ok(obj);
         }
+
         [HttpPost]
-        public IActionResult CreateGenre([FromBody] CreateGenreModel model)
+        public IActionResult AddGenre([FromBody] CreateGenreModel newGenre)
         {
-            CreateGenreCommand createGenre = new(_context);
-            createGenre._model = model;
-            CreateGenreCommandValidator validator = new();
-            validator.ValidateAndThrow(createGenre);
-            createGenre.Handle();
+            CreateGenreCommand command = new CreateGenreCommand(_context);
+            command.Model = newGenre;
 
+            CreateGenreCommandValidator validator = new CreateGenreCommandValidator();
+            validator.ValidateAndThrow(command);
+
+            command.Handle();
             return Ok();
         }
-        [HttpPost("id")]
-        public IActionResult UpdateGenre(int id, [FromBody] UpdateGenreModel model)
+
+        [HttpPut("id")]
+        public IActionResult UpdateGenre(int id, [FromBody] UpdateGenreModel updateGenre)
         {
-            UpdateGenreCommand updateGenre = new(_context);
-            updateGenre.GenreID = id;
-            updateGenre._model = model;
-            UpdateGenreCommandValidator validator = new();
-            validator.ValidateAndThrow(updateGenre);
-            updateGenre.Handle();
+            UpdateGenreCommand command = new UpdateGenreCommand(_context);
+            command.GenreId = id;
+            command.Model = updateGenre;
+
+            UpdateGenreCommandValidator validator = new UpdateGenreCommandValidator();
+            validator.ValidateAndThrow(command);
+
+            command.Handle();
             return Ok();
         }
+
         [HttpDelete("id")]
         public IActionResult DeleteGenre(int id)
         {
-            DeleteGenreCommand deleteGenre = new(_context);
-            deleteGenre.GenreId = id;
-            DeleteGenreCommandValidator validator = new();
-            validator.ValidateAndThrow(deleteGenre);
+            DeleteGenreCommand command = new DeleteGenreCommand(_context);
+            command.GenreId = id;
+
+            DeleteGenreCommandValidator validator = new DeleteGenreCommandValidator();
+            validator.ValidateAndThrow(command);
+
+            command.Handle();
             return Ok();
         }
+
     }
 }

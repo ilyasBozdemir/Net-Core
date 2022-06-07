@@ -1,29 +1,26 @@
-﻿using AutoMapper;
+using AutoMapper;
+using BookStoreWebAPI.Application.AuthorOperations.Queries.GetAuthorDetail;
+using BookStoreWebAPI.Application.AuthorOperations.Queries.GetAuthorsQuery;
+using WebApi.Application.BookOperations.Queries.GetBookDetail;
+using WebApi.Application.BookOperations.Queries.GetBooks;
+using WebApi.Application.GenreOperations.Queries.GetGenreDetail;
 using WebApi.Application.GenreOperations.Queries.GetGenres;
-using WebApi.BookOperations.CreateBook;
-using WebApi.BookOperations.GetBooks;
 using WebApi.Entities;
-using WebApi.Enum;
+using static WebApi.Application.BookOperations.Commands.CreateBook.CreateBookCommand;
 
 namespace WebApi.Common
 {
-    public class MappingProfile: Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
             CreateMap<CreateBookModel, Book>();
-
-            /*
-            CreateMap<Book, BooksViewModel>()  
-                .ForMember(dest => dest.Genre,
-                opt => opt.MapFrom(src => ((GenreEnum)src.GenreId).ToString()));
-            */
-
-            CreateMap<Genre, GenreViewModel>();
-
-            ///
-
+            CreateMap<Book, BookDetailViewModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name));
+            CreateMap<Book,BooksViewModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name ));
+            CreateMap<Genre,GenresViewModel>();
+            CreateMap<Genre,GenreDetailViewModel>();
+            CreateMap<Author, GetAuthorsQueryModel>();
+            CreateMap<Author, GetAuthorDetailQueryModel>();
         }
-
     }
 }

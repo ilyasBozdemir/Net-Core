@@ -1,45 +1,41 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using WebApi;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using WebApi.DBOperations;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddDbContext<BookStoreDbContext>(opt => opt.UseInMemoryDatabase(databaseName: "BookStoreDB"));
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddSwaggerGen(c =>
+namespace WebApi
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
-});
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            //1. Get the IWebHost which will host this application.
+            var host = CreateHostBuilder(args).Build();
 
+            //2. Find the service layer within our scope.
+            using (var scope = host.Services.CreateScope())
+            {
+                //3. Get the instance of BoardGamesDBContext in our services layer
+                var services = scope.ServiceProvider;
+                //4. Call the DataGenerator to create sample data
+                DataGenerator.Initialize(services);
+            }
 
+            //Continue to run the application
+            host.Run();
+        }
 
-var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    DataGenerator.Initialize(services);
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
 }
-
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

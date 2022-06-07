@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApi.Entities
 {
@@ -8,8 +9,6 @@ namespace WebApi.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public DateTime DateOfBirth { get; set; }
-
-        public ICollection<Book> Books { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 }

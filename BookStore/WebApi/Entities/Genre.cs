@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApi.Entities
 {
@@ -8,6 +8,5 @@ namespace WebApi.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; } = true;
-
     }
 }

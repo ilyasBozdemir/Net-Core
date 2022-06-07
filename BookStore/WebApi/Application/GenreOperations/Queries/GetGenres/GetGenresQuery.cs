@@ -1,30 +1,31 @@
-﻿using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using WebApi.DBOperations;
 
 namespace WebApi.Application.GenreOperations.Queries.GetGenres
 {
-
     public class GetGenresQuery
     {
-        public readonly BookStoreDbContext _context;
-        public IMapper _mapper;
-        public GetGenresQuery(BookStoreDbContext context, IMapper mapper)
+        public readonly IBookStoreDbContext _context;
+        public readonly IMapper _mapper;
+        public GetGenresQuery(IBookStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
-        public List<GenreViewModel> Handle()
+
+        public List<GenresViewModel> Handle()
         {
-            var genres = _context.Genres.Where(genre => genre.IsActive).OrderBy(genre => genre.Id);
-            List<GenreViewModel> returnObj = _mapper.Map<List<GenreViewModel>>(genres);
+            var genres = _context.Genres.Where(x => x.IsActive).OrderBy(x => x.Id);
+            List<GenresViewModel> returnObj = _mapper.Map<List<GenresViewModel>>(genres);
             return returnObj;
         }
     }
-    public class GenreViewModel
+
+    public class GenresViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-    
     }
 }
-

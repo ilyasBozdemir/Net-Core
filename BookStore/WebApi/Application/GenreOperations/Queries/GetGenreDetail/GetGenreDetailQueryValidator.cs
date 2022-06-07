@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using WebApi.Application.GenreOperations.Commands;
+
+using FluentValidation;
 
 namespace WebApi.Application.GenreOperations.Queries.GetGenreDetail
 {
@@ -7,7 +7,7 @@ namespace WebApi.Application.GenreOperations.Queries.GetGenreDetail
     {
         public GetGenreDetailQueryValidator()
         {
-            RuleFor(data => data.GenreID).GreaterThan(4);
+            RuleFor(query => query.GenreId).GreaterThan(0);
         }
     }
 }
