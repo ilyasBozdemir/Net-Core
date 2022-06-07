@@ -25,7 +25,7 @@ namespace WebApi.DBOperations
                 DateOfBirth = new DateTime(1975, 04, 12)
 
             };
-            var bookList2 = GetBooks().ToList().Select(x => x.AuthorId == author.Id) as List<Book>;
+            var bookList2 = GetBooks().ToList().Select(x => x.AuthorId == author2.Id) as List<Book>;
             foreach (var book2 in bookList2)
                 author2.Books.Add(book2);
 
