@@ -4,6 +4,6 @@
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public List<ActedInMovieViewModel> Movies { get; set; }
+        public List<ActorsViewModel> Movies { get; set; }
     }
 }

@@ -3,6 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MovieStore.DBOperations;
 using Microsoft.AspNetCore.Authorization;
+using MovieStore.Application.Operations.Entities.Customer.Commands.Create;
+using MovieStore.Application.Operations.Entities.Customer.ViewModels;
+using FluentValidation;
+using MovieStore.Application.Operations.Entities.Customer.Queries.GetCustomers;
+using MovieStore.Application.Operations.Entities.Customer.Commands.Delete;
+using MovieStore.Application.Auth.CreateToken;
+using MovieStore.Application.Auth.Models;
+using MovieStore.Application.Auth;
+using MovieStore.Application.Operations.Entities.Customer.Queries.GetById;
+
 namespace MovieStore.Controllers
 {
     [ApiController, Route("api/[controller]")]
@@ -22,51 +32,83 @@ namespace MovieStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateCustomer()
+        public IActionResult CreateCustomer([FromBody] CreateCustomerModel newCustomer)
         {
+            CreateCustomerCommand command = new CreateCustomerCommand(_context, _mapper);
+            command.Model = newCustomer;
+
+            CreateCustomerCommandValidator validator = new CreateCustomerCommandValidator();
+            validator.ValidateAndThrow(command);
+
+            command.Handle();
+
             return Ok();
         }
-
-
 
         [HttpGet]
         public IActionResult GetCustomers()
         {
-
-            return Ok();
+            GetCustomersQuery query = new GetCustomersQuery(context: _context, mapper: _mapper);
+            List<CustomerViewModel> result = query.Handle();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetCustomerById(int id)
         {
-            return Ok();
+
+            GetCustomerByIdQuery query = new GetCustomerByIdQuery(_context, _mapper);
+            query.Id = id;
+
+            GetCustomerByIdQueryValidator validator = new GetCustomerByIdQueryValidator();
+            validator.ValidateAndThrow(query);
+
+            GetCustomerByIdViewModel result = query.Handle();
+
+            return Ok(result);
         }
 
         [Authorize(Roles = "Customer"), HttpDelete("{id}")]
         public IActionResult DeleteCustomer(int id)
         {
+            DeleteCustomerCommand command = new DeleteCustomerCommand(_context, _httpContextAccessor);
+            command.Id = id;
+
+            DeleteCustomerCommandValidator validator = new DeleteCustomerCommandValidator();
+            validator.ValidateAndThrow(command);
+
+            command.Handle();
 
             return Ok();
         }
         [Authorize, HttpPost("login")]
-        public IActionResult CreateToken(int id)
+        public ActionResult<Token> CreateToken([FromBody] LoginModel loginInfo)
         {
+            CreateTokenCommand command = new CreateTokenCommand(_context, _configuration);
+            command.Model = loginInfo;
 
-            return Ok();
+            CreateTokenCommandValidator validator = new CreateTokenCommandValidator();
+            validator.ValidateAndThrow(command);
+
+            Token token = command.Handle();
+
+            return token;
         }
 
 
         [HttpGet("refresh-token")]
-        public IActionResult RefreshToken(int id)
+        public ActionResult<Token> RefreshToken([FromQuery] string token)
         {
-
-            return Ok();
+            RefreshTokenCommand command = new RefreshTokenCommand(context:_context, configuration: _configuration);
+            command.RefreshToken = token;
+            Token resultAccessToken = command.Handle();
+            return resultAccessToken;
         }
 
         [Authorize(Roles = "Customer"), HttpPost("buymovie/{id}")]
         public IActionResult BuyMovie(int id)
         {
-            return BadRequest();
+            return NotFound();//gelcek devamý
         }
     }
 }
