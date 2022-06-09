@@ -38,11 +38,6 @@
     <Folder Include="Application\Operations\Entities\Order\Queries\GetById\" />
     <Folder Include="Application\Operations\Entities\Order\Queries\GetList\" />
     <Folder Include="Application\Operations\Entities\Order\ViewModels\" />
-    <Folder Include="Application\Operations\Entities\Movie\Commands\Create\" />
-    <Folder Include="Application\Operations\Entities\Movie\Commands\Delete\" />
-    <Folder Include="Application\Operations\Entities\Movie\Commands\Update\" />
-    <Folder Include="Application\Operations\Entities\Movie\Queries\GetById\" />
-    <Folder Include="Application\Operations\Entities\Movie\Queries\GetList\" />
     <Folder Include="Application\Operations\Entities\Movie\ViewModels\" />
     <Folder Include="Application\Operations\Token\" />
   </ItemGroup>
