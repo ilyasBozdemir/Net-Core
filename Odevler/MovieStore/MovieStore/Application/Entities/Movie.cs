@@ -15,7 +15,7 @@ namespace MovieStore.Entities
         public List<Actor> Actors { get; set; }
         public int Price { get; set; }
         public bool isActive { get; set; } = true;
-
-
+        public object Director { get; internal set; }
+        public object Genre { get; internal set; }
     }
 }

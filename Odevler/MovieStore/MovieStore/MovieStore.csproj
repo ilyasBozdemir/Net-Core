@@ -17,37 +17,42 @@
     <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="BCrypt" Version="1.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0-preview.4.22229.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="XAct.Core.PCL" Version="0.0.5014" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Application\Common\Enums\" />
     <Folder Include="Application\Data\" />
-    <Folder Include="Application\Operations\Entities\Actor\Commands\Create\" />
-    <Folder Include="Application\Operations\Entities\Actor\Commands\Delete\" />
-    <Folder Include="Application\Operations\Entities\Actor\Commands\Update\" />
-    <Folder Include="Application\Operations\Entities\Actor\Queries\GetById\" />
-    <Folder Include="Application\Operations\Entities\Actor\Queries\GetList\" />
     <Folder Include="Application\Operations\Entities\Customer\Commands\Create\" />
     <Folder Include="Application\Operations\Entities\Customer\Commands\Delete\" />
     <Folder Include="Application\Operations\Entities\Customer\Commands\Update\" />
     <Folder Include="Application\Operations\Entities\Customer\Queries\GetById\" />
     <Folder Include="Application\Operations\Entities\Customer\Queries\GetList\" />
+    <Folder Include="Application\Operations\Entities\Customer\ViewModels\" />
     <Folder Include="Application\Operations\Entities\Director\Commands\Create\" />
     <Folder Include="Application\Operations\Entities\Director\Commands\Delete\" />
     <Folder Include="Application\Operations\Entities\Director\Commands\Update\" />
     <Folder Include="Application\Operations\Entities\Director\Queries\GetById\" />
     <Folder Include="Application\Operations\Entities\Director\Queries\GetList\" />
+    <Folder Include="Application\Operations\Entities\Director\ViewModels\" />
+    <Folder Include="Application\Operations\Entities\Order\Commands\Create\" />
+    <Folder Include="Application\Operations\Entities\Order\Commands\Delete\" />
+    <Folder Include="Application\Operations\Entities\Order\Commands\Update\" />
+    <Folder Include="Application\Operations\Entities\Order\Queries\GetById\" />
+    <Folder Include="Application\Operations\Entities\Order\Queries\GetList\" />
+    <Folder Include="Application\Operations\Entities\Order\ViewModels\" />
     <Folder Include="Application\Operations\Entities\Movie\Commands\Create\" />
     <Folder Include="Application\Operations\Entities\Movie\Commands\Delete\" />
     <Folder Include="Application\Operations\Entities\Movie\Commands\Update\" />
     <Folder Include="Application\Operations\Entities\Movie\Queries\GetById\" />
     <Folder Include="Application\Operations\Entities\Movie\Queries\GetList\" />
-    <Folder Include="Application\Operations\Entities\" />
+    <Folder Include="Application\Operations\Entities\Movie\ViewModels\" />
     <Folder Include="Application\Operations\Token\" />
   </ItemGroup>
 

@@ -12,7 +12,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen();
 
-//dependency injection
 
 builder.Services.AddDbContext<MovieStoreDbContext>(options =>
 {
